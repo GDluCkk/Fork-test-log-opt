@@ -10,6 +10,26 @@ const { getCurrentVersion, checkForUpdates } = require('./src/versionCheck');
 checkForUpdates();
 
 /**
+ * 上游新增功能：性能监控
+ * 这是原始仓库新增的功能
+ */
+function performanceMonitor(operation, callback) {
+  const startTime = Date.now();
+  const result = callback();
+  const endTime = Date.now();
+  console.log(`⏱️  操作 "${operation}" 耗时: ${endTime - startTime}ms`);
+  return result;
+}
+
+/**
+ * 上游新增功能：批量日志处理
+ */
+function batchLogPro(messages, options = {}) {
+  console.log(`📦 批量处理 ${messages.length} 条日志消息`);
+  return messages.map(msg => logPro(msg, options));
+}
+
+/**
  * 自定义功能：增强版日志格式化
  * 这是我们Fork中添加的定制化功能
  */
@@ -37,7 +57,8 @@ function getPackageInfo() {
     name: 'log-opt (Fork版本)',
     version: '1.1.2-custom',
     description: '增强版日志工具 - 包含定制化功能',
-    customFeatures: ['customLogFormatter', 'customLogPro', 'getPackageInfo']
+    customFeatures: ['customLogFormatter', 'customLogPro', 'getPackageInfo'],
+    upstreamFeatures: ['performanceMonitor', 'batchLogPro']
   };
 }
 
@@ -47,6 +68,10 @@ module.exports = {
   clearLogProLogs,
   _initialize_log_dirs,
   _cleanup,
+
+  // 上游新增功能
+  performanceMonitor,
+  batchLogPro,
 
   // 定制化功能
   customLogFormatter,
